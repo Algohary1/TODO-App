@@ -1,5 +1,8 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:todo_app/add_task_bottom_sheet.dart';
 import 'package:todo_app/tabs/settings.dart';
 import 'package:todo_app/tabs/tasks.dart';
 
@@ -18,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBody: true,
         backgroundColor: Color(0xFFDFECDB),
         appBar: AppBar(
           backgroundColor: Colors.blue,
@@ -31,7 +35,19 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (context) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: AddTaskBottomSheet(),
+                );
+              },
+            );
+          },
           backgroundColor: Colors.blue,
           shape: OutlineInputBorder(
             borderRadius: BorderRadius.circular(35),

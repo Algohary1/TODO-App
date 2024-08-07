@@ -25,7 +25,12 @@ class TasksTab extends StatelessWidget {
         SizedBox(
           height: 24,
         ),
-        TaskItem(),
+        Expanded(
+          child: ListView.builder(itemBuilder: (context, index) {
+            return TaskItem();
+          },
+          itemCount: 60,),
+        )
       ],
     );
   }
