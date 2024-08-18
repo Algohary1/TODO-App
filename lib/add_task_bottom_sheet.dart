@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/my_theme_data.dart';
+import 'package:todo_app/task_model.dart';
 
-class AddTaskBottomSheet extends StatelessWidget {
-  const AddTaskBottomSheet({super.key});
+class AddTaskBottomSheet extends StatefulWidget {
+  AddTaskBottomSheet({super.key});
+
+  @override
+  State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
+}
+
+class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
+  var titleController = TextEditingController();
+
+  var descriptionController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +35,8 @@ class AddTaskBottomSheet extends StatelessWidget {
             height: 18,
           ),
           TextField(
+            style: TextStyle(color: Colors.black),
+            controller: titleController,
             decoration: InputDecoration(
               labelText: 'title',
               border: OutlineInputBorder(
@@ -33,6 +48,8 @@ class AddTaskBottomSheet extends StatelessWidget {
             height: 22,
           ),
           TextField(
+            style: TextStyle(color: Colors.black),
+            controller: descriptionController,
             decoration: InputDecoration(
               labelText: 'Description',
               border: OutlineInputBorder(
@@ -45,24 +62,43 @@ class AddTaskBottomSheet extends StatelessWidget {
           ),
           Text(
             'Select date',
-            style: TextStyle(fontSize: 16),
+            style: Theme
+                .of(context)
+                .textTheme
+                .bodySmall,
           ),
           SizedBox(
             height: 18,
           ),
-          Center(
-              child: Text(
-            '28/8/2024',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          )),
+          GestureDetector(
+            onTap: () {
+              chooseYourDate();
+            },
+            child: Center(
+                child: Text(
+                    selectedDate.toString().substring(0, 10),
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodySmall
+                )),
+          ),
           SizedBox(
             height: 18,
           ),
           Container(
               width: double.infinity,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: MyThemeData.primaryColor),
+                  onPressed: () {
+                    TaskModel model = TaskModel(title: titleController.text,
+                        description: descriptionController.text,
+                        date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);
+                    FirebaseFunctions.addTask(model).then((value){
+                      Navigator.pop(context);
+                    });
+                  },
                   child: Text(
                     'ADD',
                     style: TextStyle(
@@ -73,5 +109,19 @@ class AddTaskBottomSheet extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  chooseYourDate() async {
+    DateTime? chosenDate = await showDatePicker(context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(Duration(days: 365),)
+    );
+    if (chosenDate != null) {
+      selectedDate = chosenDate;
+      setState(() {
+
+      });
+    }
   }
 }

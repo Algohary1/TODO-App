@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/my_theme_data.dart';
+import 'package:todo_app/task_model.dart';
 
 class TaskItem extends StatelessWidget {
-  const TaskItem({super.key});
+  TaskModel model;
+   TaskItem({required this.model,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class TaskItem extends StatelessWidget {
           Container(
             height: 90,
             width: 2,
-            color: Colors.blue,
+            color: MyThemeData.primaryColor,
           ),
           SizedBox(
             width: 18,
@@ -27,12 +30,12 @@ class TaskItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Task Title',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  model.title,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Text(
-                  'Task Description',
-                  style: TextStyle(fontSize: 18),
+                  model.description,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
             ),
@@ -40,7 +43,7 @@ class TaskItem extends StatelessWidget {
           IconButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: MyThemeData.primaryColor,
                   minimumSize: Size(70, 22),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12))),

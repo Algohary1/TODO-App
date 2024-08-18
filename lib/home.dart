@@ -22,15 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
-        backgroundColor: Color(0xFFDFECDB),
         appBar: AppBar(
-          backgroundColor: Colors.blue,
           title: const Text(
             'TODO',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-            ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -63,18 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
           notchMargin: 10,
           shape: CircularNotchedRectangle(),
           child: BottomNavigationBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              selectedItemColor: Colors.blue,
-              unselectedItemColor: Colors.grey,
               iconSize: 30,
               onTap: (index) {
                 selectedIndex = index;
                 setState(() {});
               },
               currentIndex: selectedIndex,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
               items: [
                 BottomNavigationBarItem(icon: Icon(Icons.list), label: ''),
                 BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),

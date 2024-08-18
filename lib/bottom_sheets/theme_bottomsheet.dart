@@ -29,7 +29,7 @@ class ThemeBottomsheet extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 25
               ),),
-              Icon(Icons.done)
+              // Icon(Icons.done)
             ],
           )
         ],
