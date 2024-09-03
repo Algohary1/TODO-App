@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/my_theme_data.dart';
-import 'package:todo_app/task_model.dart';
+import 'package:todo_app/models/task_model.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   AddTaskBottomSheet({super.key});
@@ -77,10 +77,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             child: Center(
                 child: Text(
                     selectedDate.toString().substring(0, 10),
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodySmall
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold
+                    )
                 )),
           ),
           SizedBox(

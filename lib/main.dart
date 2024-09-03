@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/home.dart';
+import 'package:todo_app/login/login.dart';
+import 'package:todo_app/login/signup.dart';
 import 'package:todo_app/my_theme_data.dart';
 
 void main()async{
@@ -10,7 +13,8 @@ WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
   );
-runApp(MyApp());
+await FirebaseFirestore.instance.enableNetwork();
+runApp(const MyApp());
 
 
 }
@@ -23,9 +27,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         HomeScreen.routeName : (context) => HomeScreen(),
+        Login.routeName : (context) =>  Login(),
+        SignUp.routeName : (context) => SignUp(),
 
       },
-      initialRoute: HomeScreen.routeName,
+      initialRoute: Login.routeName,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: MyThemeData.LightTheme,

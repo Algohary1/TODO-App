@@ -20,11 +20,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String lable=ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
         extendBody: true,
         appBar: AppBar(
-          title: const Text(
-            'TODO',
+          title:  Text(
+            'Hello $lable',
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
