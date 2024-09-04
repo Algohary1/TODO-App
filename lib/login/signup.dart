@@ -109,6 +109,7 @@ class SignUp extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       FirebaseFunctions.createAccountAuth(emailController.text, passwordController.text,
+                      userName: userNameController.text,
                       onSuccess: (){
                         showDialog(context: context, builder: (context) => AlertDialog(
                           title: const Text('Congratulations!'),

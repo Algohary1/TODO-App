@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/login/signup.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/models/user_model.dart';
 
 class FirebaseFunctions {
   static CollectionReference<TaskModel> getTasksCollection() {
@@ -18,6 +19,25 @@ class FirebaseFunctions {
     );
   }
 
+  static CollectionReference<UserModel> getUsersCollection() {
+    return FirebaseFirestore.instance
+        .collection('Users')
+        .withConverter<UserModel>(
+      fromFirestore: (snapshot, _) {
+        return UserModel.fromJson(snapshot.data()!);
+      },
+      toFirestore: (user, _) {
+        return user.toJson();
+      },
+    );
+  }
+
+  static Future<void> addUser(UserModel userModel) {
+    var collection = getUsersCollection();
+    var docRef = collection.doc(userModel.id);
+    return docRef.set(userModel);
+  }
+
   static Future<void> addTask(TaskModel model) async {
     var collection = getTasksCollection();
     var docRef = collection.doc();
@@ -28,6 +48,7 @@ class FirebaseFunctions {
   static Stream<QuerySnapshot<TaskModel>> getTasks(DateTime dateTime) {
     var collection = getTasksCollection();
     return collection
+        .where('userID', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
         .where('date',
             isEqualTo: DateUtils.dateOnly(dateTime).millisecondsSinceEpoch)
         .snapshots();
@@ -41,8 +62,20 @@ class FirebaseFunctions {
     return getTasksCollection().doc(model.id).update(model.toJson());
   }
 
-  static createAccountAuth(String emailAddress, String password,
-      {required Function onSuccess, required Function onError}) async {
+  static Future<UserModel?> readUser() async {
+    DocumentSnapshot<UserModel> docRef = await getUsersCollection()
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    return docRef.data();
+  }
+
+  static createAccountAuth(
+    String emailAddress,
+    String password, {
+    required Function onSuccess,
+    required Function onError,
+    required String userName,
+  }) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -50,6 +83,9 @@ class FirebaseFunctions {
         password: password,
       );
       await credential.user!.sendEmailVerification();
+      UserModel userModel = UserModel(
+          id: credential.user!.uid, email: emailAddress, userName: userName);
+      addUser(userModel);
       onSuccess();
     } on FirebaseAuthException catch (e) {
       onError(e.message);

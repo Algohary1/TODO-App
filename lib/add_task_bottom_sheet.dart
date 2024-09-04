@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/my_theme_data.dart';
@@ -93,6 +94,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       backgroundColor: MyThemeData.primaryColor),
                   onPressed: () {
                     TaskModel model = TaskModel(title: titleController.text,
+                        userID: FirebaseAuth.instance.currentUser?.uid??'',
                         description: descriptionController.text,
                         date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);
                     FirebaseFunctions.addTask(model).then((value){

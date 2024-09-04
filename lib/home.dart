@@ -2,7 +2,9 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/add_task_bottom_sheet.dart';
+import 'package:todo_app/providers/my_provider.dart';
 import 'package:todo_app/tabs/settings.dart';
 import 'package:todo_app/tabs/tasks.dart';
 
@@ -20,12 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String lable=ModalRoute.of(context)?.settings.arguments as String;
+    var pro= Provider.of<MyProvider>(context);
     return Scaffold(
         extendBody: true,
         appBar: AppBar(
           title:  Text(
-            'Hello $lable',
+            'Hello ${pro.userModel?.userName}',
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

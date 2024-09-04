@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/home.dart';
 import 'package:todo_app/login/signup.dart';
+import 'package:todo_app/providers/my_provider.dart';
 
 class Login extends StatelessWidget {
   static const String routeName = 'login';
@@ -13,6 +15,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.all(24),
@@ -30,6 +33,7 @@ class Login extends StatelessWidget {
   }
 
   _header(context) {
+
     return const Column(
       children: [
         Text(
@@ -42,6 +46,8 @@ class Login extends StatelessWidget {
   }
 
   _inputField(context) {
+    var provider=Provider.of<MyProvider>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -79,6 +85,7 @@ class Login extends StatelessWidget {
             FirebaseFunctions.loginIn(
                 emailAddressController.text, passwordController.text,
                 onSuccess: (lable) {
+                  provider.initUser();
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 HomeScreen.routeName,
