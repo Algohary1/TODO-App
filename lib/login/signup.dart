@@ -16,7 +16,8 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body:
+      body: SingleChildScrollView(
+        child:
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           height: MediaQuery.of(context).size.height - 50,
@@ -167,6 +168,7 @@ class SignUp extends StatelessWidget {
             ],
           ),
         ),
+      ),
     );
   }
 }
