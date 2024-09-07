@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/firebase/firebase_functions.dart';
 import 'package:todo_app/home.dart';
 import 'package:todo_app/login/signup.dart';
 import 'package:todo_app/providers/my_provider.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/firebase/firebase_functions.dart';
 import 'package:todo_app/login/login.dart';
 
 class SignUp extends StatelessWidget {

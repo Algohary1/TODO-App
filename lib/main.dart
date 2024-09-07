@@ -7,7 +7,7 @@ import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/home.dart';
 import 'package:todo_app/login/login.dart';
 import 'package:todo_app/login/signup.dart';
-import 'package:todo_app/my_theme_data.dart';
+import 'package:todo_app/theme/my_theme_data.dart';
 import 'package:todo_app/providers/my_provider.dart';
 
 import 'tabs/edit_task_screen.dart';

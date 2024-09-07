@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/bottom_sheets/language_bottomsheet.dart';
 import 'package:todo_app/bottom_sheets/theme_bottomsheet.dart';
 import 'package:todo_app/login/login.dart';
-import 'package:todo_app/my_theme_data.dart';
+import 'package:todo_app/theme/my_theme_data.dart';
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab({super.key});

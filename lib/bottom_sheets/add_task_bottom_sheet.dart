@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/firebase_functions.dart';
-import 'package:todo_app/my_theme_data.dart';
+import 'package:todo_app/firebase/firebase_functions.dart';
+import 'package:todo_app/theme/my_theme_data.dart';
 import 'package:todo_app/models/task_model.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
