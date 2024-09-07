@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/my_theme_data.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/tabs/edit_task_screen.dart';
 
 class TaskItem extends StatelessWidget {
   TaskModel model;
@@ -35,7 +36,10 @@ class TaskItem extends StatelessWidget {
               ),
             ),
             SlidableAction(
-              onPressed: (context) {},
+              onPressed: (context) {
+                Navigator.pushNamed(context, EditTaskScreen.routeName, arguments: model);
+
+              },
               backgroundColor: Colors.blue,
               icon: Icons.edit,
               label: 'Edit',
